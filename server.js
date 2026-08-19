@@ -11,7 +11,9 @@ let lastRunAt = null;
 let inFlightRun = null;
 
 app.use(express.static(path.join(__dirname, "public")));
-
+app.get("/", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 async function runOnce() {
   if (!inFlightRun) {
     inFlightRun = runIngestion()
