@@ -1,45 +1,13 @@
 # DECISIONS
 
-## 1. Why did I choose this ingestion strategy?
+## 1. Why this ingestion strategy over the obvious alternative you rejected?
 
-I chose a public API/RSS approach instead of scraping a restricted job
-platform.
+I chose the public API/RSS approach instead of directly scraping platforms like LinkedIn or Indeed. RemoteOK gives me real job data through a public API, and I use We Work Remotely as a fallback through its public RSS feed. This allowed me to focus on the ingestion and resilience part of the task without trying to bypass access restrictions.
 
-Remote OK is the primary source because it provides a public JSON feed.
-We Work Remotely is the fallback because it provides a public
-programming RSS feed.
+## 2. One trade-off you made under the time limit, and what you’d do with a real week.
 
-The flow is intentionally simple:
+I kept the storage simple by using a local last-known-good cache and in-memory run history instead of adding a database or Redis. This helped me keep the project simple and deploy it within the time limit. With a full week, I would add persistent storage and shared caching/rate limiting to make it more suitable for multiple instances.
 
-``` text
-primary -> fallback -> last-known-good cache
-```
+## 3. Where did you use AI tools, and what did you personally verify or change afterward?
 
-This gives the system real live data while still handling source
-failures.
-
-## 2. What trade-off did I make?
-
-I kept the infrastructure small.
-
-The rate limiter, circuit breakers, run history, and cache are local to
-the Node.js process. I did not add Redis, PostgreSQL, a message queue,
-or another service.
-
-This makes the project easy to run and explain for the assessment, but
-it would need persistent/shared infrastructure for a larger
-multi-instance production system.
-
-## 3. Where did I use AI tools, and what did I personally verify or change afterward?
-
-I used AI tools to help with scaffolding, implementation, debugging,
-documentation, and UI work.
-
-I personally ran the application locally, checked the live job source,
-verified the primary/fallback flow, reviewed the backend logic, and made
-changes where the generated implementation did not match the intended
-design.
-
-I kept the final implementation small enough that I can explain the
-retry, rate limiting, circuit breaker, fallback, cache, parsing, and
-frontend behavior.
+I used AI tools for coding, debugging, documentation, and UI development. I personally ran and tested the application, verified that the listings were coming from the live RemoteOK API, checked the retry, fallback, rate-limiting and caching behavior, and made changes when something did not work as expected. I also deployed and tested the final application myself.
