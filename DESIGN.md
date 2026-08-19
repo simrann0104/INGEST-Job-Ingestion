@@ -69,12 +69,11 @@ Non-retryable HTTP errors fail fast.
 
 Each source has its own circuit breaker.
 
--   3 recorded failures open the circuit.
--   The source remains open for 5 minutes.
--   After the cooldown, one trial request is allowed.
+- 3 recorded failures open the circuit.
+- The source remains open for 5 minutes.
+- After the cooldown, the failure state resets and the next request is allowed as a trial.
 
-This prevents a failing source from repeatedly delaying the whole
-pipeline.
+This prevents a failing source from repeatedly delaying the whole pipeline.
 
 ## 5. Parsing and data quality
 
