@@ -1,4 +1,4 @@
-# Job Ingestion Pipeline
+# INGEST - Job Ingestion Pipeline
 
 A small Node.js/Express application that fetches real public job
 listings and keeps serving usable data when a source fails.
